@@ -1,0 +1,122 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-img src="/assets/img/logoHeader.jpg" class="mediana"></ion-img>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="background">
+<ion-grid>
+    <ion-row>
+    <ion-col>
+    <ion-text>Puedes utilizar cualquiera de las tarjetas que se muestran a
+      continuación.
+    </ion-text>
+    <ion-img src="/assets/img/american-express.png" class="small"></ion-img>
+    <ion-img src="/assets/img/discover.png" class="small"></ion-img>
+    <ion-img src="/assets/img/mastercard.jpg" class="small"></ion-img>
+    <ion-img src="/assets/img/visa.png" class="small"></ion-img>
+    </ion-col>
+    </ion-row>
+    <form [formGroup]="formulario" (ngSubmit)="onSubmit(formulario.value)">
+      <div formGroupName="grupoDatosTarjeta">
+        <ion-row>
+          <ion-col>
+            <ion-text>Número de tarjeta:</ion-text>
+            <ion-input formControlName="numero"></ion-input>
+          </ion-col>
+          <div class="validation-errors">  <!--validación de errores para numero-->
+            <ng-container *ngFor="let validation of validation_messages.numero">
+              <div class="error-message"
+              *ngIf="formulario.get('grupoDatosTarjeta').get('numero').hasError(validation.type) 
+                    && (formulario.get('grupoDatosTarjeta').get('numero').dirty || formulario.get('grupoDatosTarjeta').get('numero').touched)">
+              <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+            </div>
+            </ng-container>
+          </div>  
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+              <ion-text>Expira:</ion-text>
+              <ion-input type="text" placeholder="MM/AA" class="expira" formControlName="expira"></ion-input>
+              <div class="validation-errors">  <!--validación de errores para expira-->
+                <ng-container *ngFor="let validation of validation_messages.expira">
+                  <div class="error-message"
+                  *ngIf="formulario.get('grupoDatosTarjeta').get('expira').hasError(validation.type) 
+                        && (formulario.get('grupoDatosTarjeta').get('expira').dirty || formulario.get('grupoDatosTarjeta').get('expira').touched)">
+                  <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+                </div>
+                </ng-container>
+              </div>  
+          </ion-col>
+
+          <ion-col></ion-col>
+
+          <ion-col>
+              <ion-text>CCV:</ion-text>
+              <ion-input  type="password"  maxlength="3" class="ccv" formControlName="cvv"></ion-input>
+              <div class="validation-errors">  <!--validación de errores para ccv-->
+                <ng-container *ngFor="let validation of validation_messages.cvv">
+                  <div class="error-message"
+                  *ngIf="formulario.get('grupoDatosTarjeta').get('cvv').hasError(validation.type) 
+                        && (formulario.get('grupoDatosTarjeta').get('cvv').dirty || formulario.get('grupoDatosTarjeta').get('cvv').touched)">
+                  <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+                </div>
+                </ng-container>
+              </div>  
+            </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+            <ion-text>Tipo de tarjeta: </ion-text>
+            <ion-select formControlName="tipo">
+              <ion-select-option *ngFor="let tarjeta of tarjetasAdmitidas" >{{tarjeta.nombre}}</ion-select-option>
+            </ion-select>
+          </ion-col>
+
+          <ion-col></ion-col>
+
+          <ion-col>
+            <ion-text style="float: left">C.Prom.: </ion-text>
+            <br>
+            <ion-checkbox formControlName="clientePromocional"></ion-checkbox>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+
+          <ion-col></ion-col>
+
+          <ion-col></ion-col>
+
+        </ion-row>
+
+        <ion-row>
+          <ion-col></ion-col>
+
+          <!-- <ion-col>
+            <ion-button color="danger" class="botonBorrar" (click)="clickBorrar()">Borrar</ion-button>
+          </ion-col> -->
+
+          <ion-col>
+            <ion-button color="primary" class="submit-btn" expand="block" type="submit" [disabled]="!formulario.valid">Submit data</ion-button>
+          </ion-col>
+        </ion-row>
+      </div>
+
+      <div class="validation-errors">  <!--validación de errores para grupoDatosTarjeta-->
+        <ng-container *ngFor="let validation of validation_messages.grupoDatosTarjeta">
+          <div class="error-message"
+            *ngIf="formulario.get('grupoDatosTarjeta').hasError(validation.type) 
+                  && (formulario.get('grupoDatosTarjeta').get('numero').dirty 
+                  || formulario.get('grupoDatosTarjeta').get('numero').touched)">
+            <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+          </div>
+        </ng-container>
+      </div> 
+
+    </form>
+</ion-grid>
+ 
+</ion-content>

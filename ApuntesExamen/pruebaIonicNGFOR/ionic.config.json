@@ -1,0 +1,7 @@
+{
+  "name": "pruebaIonicNGFOR",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
